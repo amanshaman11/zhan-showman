@@ -484,10 +484,8 @@ h1, h2, h3, h4 { font-family: var(--ff-head); line-height: 1.12; font-weight: 70
 .review-card__event { font-size: 13px; color: var(--muted); margin-top: 2px; }
 
 /* ============ PORTFOLIO SWIPER ============ */
-.portfolio-swiper { padding-bottom: 48px; position: relative; overflow: hidden; min-height: 320px; }
-.portfolio-swiper .swiper-wrapper { align-items: stretch; min-height: 280px; }
-.portfolio-swiper .swiper-slide { height: auto; display: flex; }
-.portfolio-item { position: relative; border-radius: var(--radius-md); overflow: hidden; background: var(--bg-dark); aspect-ratio: 3/4; margin: 0; width: 100%; min-height: 280px; }
+.portfolio-swiper { padding-bottom: 48px; position: relative; }
+.portfolio-item { position: relative; border-radius: var(--radius-md); overflow: hidden; background: var(--bg-dark); aspect-ratio: 3/4; margin: 0; }
 .portfolio-item a { display: block; width: 100%; height: 100%; position: relative; color: inherit; }
 .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
 .portfolio-item:hover img { transform: scale(1.05); }
@@ -504,9 +502,7 @@ h1, h2, h3, h4 { font-family: var(--ff-head); line-height: 1.12; font-weight: 70
 .portfolio-swiper__prev::after, .portfolio-swiper__next::after { font-size: 16px !important; font-weight: 800; }
 
 /* ============ REVIEWS SWIPER ============ */
-.reviews-swiper { padding-bottom: 44px; overflow: hidden; min-height: 220px; }
-.reviews-swiper .swiper-slide { height: auto; display: flex; }
-.reviews-swiper .review-card { width: 100%; min-height: 100%; }
+.reviews-swiper { padding-bottom: 44px; }
 .reviews-swiper__pagination .swiper-pagination-bullet { background: var(--border); opacity: 1; }
 .reviews-swiper__pagination .swiper-pagination-bullet-active { background: var(--accent); width: 24px; border-radius: 4px; }
 

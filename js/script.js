@@ -99,31 +99,25 @@ document.addEventListener('DOMContentLoaded', () => {
   buildClientLogos();
 
   /* ---------- SWIPER & GLIGHTBOX ---------- */
-  const swiperOpts = { observer: true, observeParents: true, resizeObserver: true, watchOverflow: true };
-
   if (typeof Swiper !== 'undefined') {
     reviewsSwiper = new Swiper('.reviews-swiper', {
-      ...swiperOpts,
       slidesPerView: 1,
       spaceBetween: 20,
       grabCursor: true,
-      speed: 400,
       pagination: { el: '.reviews-swiper__pagination', clickable: true },
       breakpoints: {
-        640: { slidesPerView: 1.15 },
+        640: { slidesPerView: 1.2 },
         960: { slidesPerView: 2, spaceBetween: 24 },
         1200: { slidesPerView: 3, spaceBetween: 24 }
       }
     });
 
     portfolioSwiper = new Swiper('.portfolio-swiper', {
-      ...swiperOpts,
       slidesPerView: 1.15,
       spaceBetween: 16,
       centeredSlides: true,
       grabCursor: true,
       loop: true,
-      speed: 400,
       pagination: { el: '.portfolio-swiper__pagination', clickable: true },
       navigation: { nextEl: '.portfolio-swiper__next', prevEl: '.portfolio-swiper__prev' },
       breakpoints: {
