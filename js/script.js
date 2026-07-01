@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ---------- SWIPER INSTANCES (hoisted for i18n refresh) ---------- */
+  let reviewsSwiper = null;
+  let portfolioSwiper = null;
+
   /* ---------- I18N ---------- */
   const LANG_KEY = 'zhan-showman-lang';
   let currentLang = localStorage.getItem(LANG_KEY) || 'ru';
@@ -58,6 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (idx >= 0 && EVENT_TYPES[lang][idx]) eventSelect.value = EVENT_TYPES[lang][idx];
       }
     }
+    requestAnimationFrame(() => {
+      if (typeof reviewsSwiper !== 'undefined' && reviewsSwiper) reviewsSwiper.update();
+      if (typeof portfolioSwiper !== 'undefined' && portfolioSwiper) portfolioSwiper.update();
+    });
   }
 
   function initLangSwitcher(container) {
@@ -72,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initLangSwitcher(document.getElementById('langSwitcher'));
   initLangSwitcher(document.getElementById('langSwitcherMobile'));
-  applyTranslations(currentLang);
 
   /* ---------- MARQUEE & CLIENT LOGOS ---------- */
   function buildMarquee() {
@@ -91,38 +98,32 @@ document.addEventListener('DOMContentLoaded', () => {
   buildMarquee();
   buildClientLogos();
 
-  /* ---------- PLUGINS: AOS, Swiper, GLightbox ---------- */
-  /* Auto-apply AOS to legacy .reveal elements */
-  document.querySelectorAll('.reveal, .section__head, .service-card, .package-card, .video-card, .process-step, .faq-item, .about__media, .about__content').forEach((el, i) => {
-    if (!el.hasAttribute('data-aos')) {
-      el.setAttribute('data-aos', 'fade-up');
-      el.setAttribute('data-aos-delay', String(Math.min(i % 6, 5) * 60));
-    }
-  });
-
-  if (typeof AOS !== 'undefined') {
-    AOS.init({ duration: 750, easing: 'ease-out-cubic', once: true, offset: 50, disable: 'mobile' });
-  }
+  /* ---------- SWIPER & GLIGHTBOX ---------- */
+  const swiperOpts = { observer: true, observeParents: true, resizeObserver: true, watchOverflow: true };
 
   if (typeof Swiper !== 'undefined') {
-    new Swiper('.reviews-swiper', {
+    reviewsSwiper = new Swiper('.reviews-swiper', {
+      ...swiperOpts,
       slidesPerView: 1,
       spaceBetween: 20,
       grabCursor: true,
+      speed: 400,
       pagination: { el: '.reviews-swiper__pagination', clickable: true },
       breakpoints: {
-        640: { slidesPerView: 1.2 },
+        640: { slidesPerView: 1.15 },
         960: { slidesPerView: 2, spaceBetween: 24 },
         1200: { slidesPerView: 3, spaceBetween: 24 }
       }
     });
 
-    new Swiper('.portfolio-swiper', {
+    portfolioSwiper = new Swiper('.portfolio-swiper', {
+      ...swiperOpts,
       slidesPerView: 1.15,
       spaceBetween: 16,
       centeredSlides: true,
       grabCursor: true,
       loop: true,
+      speed: 400,
       pagination: { el: '.portfolio-swiper__pagination', clickable: true },
       navigation: { nextEl: '.portfolio-swiper__next', prevEl: '.portfolio-swiper__prev' },
       breakpoints: {
@@ -137,12 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
     GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true });
   }
 
+  applyTranslations(currentLang);
+
   /* ---------- PRELOADER ---------- */
   const preloader = document.getElementById('preloader');
-  window.addEventListener('load', () => {
-    setTimeout(() => preloader.classList.add('is-hidden'), 350);
-  });
-  setTimeout(() => preloader && preloader.classList.add('is-hidden'), 2200);
+  const hidePreloader = () => preloader && preloader.classList.add('is-hidden');
+  window.addEventListener('load', () => setTimeout(hidePreloader, 200));
+  setTimeout(hidePreloader, 900);
 
   /* ---------- STICKY HEADER ---------- */
   const header = document.getElementById('header');
@@ -191,7 +193,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---------- SCROLL REVEAL — handled by AOS ---------- */
+  /* ---------- SCROLL REVEAL — fast, always readable ---------- */
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => revealObserver.observe(el));
+  // Show anything already in viewport immediately
+  requestAnimationFrame(() => {
+    revealEls.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('is-visible');
+    });
+  });
+
+  // Refresh carousels after images/fonts load
+  window.addEventListener('load', () => {
+    reviewsSwiper && reviewsSwiper.update();
+    portfolioSwiper && portfolioSwiper.update();
+  });
 
   /* ---------- ANIMATED COUNTERS ---------- */
   const counters = document.querySelectorAll('.stat__num');

@@ -31,8 +31,8 @@
   --shadow-soft: 0 16px 48px -16px rgba(0, 0, 0, 0.18);
   --shadow-strong: 0 24px 64px -20px rgba(0, 0, 0, 0.35);
   --shadow-accent: 0 12px 32px -8px rgba(212, 175, 55, 0.4);
-  --ff-head: "Oswald", "Arial Narrow", sans-serif;
-  --ff-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --ff-head: "Syne", system-ui, sans-serif;
+  --ff-body: "DM Sans", system-ui, sans-serif;
   --container: 1180px;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -58,14 +58,27 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal { opacity: 1; transform: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
 }
 img, svg { display: block; max-width: 100%; }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
 input, textarea, select { font-family: inherit; font-size: 15px; }
-h1, h2, h3, h4 { font-family: var(--ff-head); line-height: 1.15; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
+h1, h2, h3, h4 { font-family: var(--ff-head); line-height: 1.12; font-weight: 700; letter-spacing: -0.02em; }
+.section__title, .nav__link, .eyebrow, .section__tag, .logo__text { text-transform: uppercase; letter-spacing: 0.04em; }
+.hero__title { text-transform: none; letter-spacing: -0.03em; font-weight: 800; }
+
+/* Scroll reveal — content always visible */
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .reveal:not(.is-visible) { transform: translateY(12px); }
+}
+.reveal.is-visible { transform: translateY(0); }
 
 .container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
 .container--narrow { max-width: 800px; }
@@ -90,9 +103,6 @@ h1, h2, h3, h4 { font-family: var(--ff-head); line-height: 1.15; font-weight: 60
 }
 
 .preloader.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-
-/* reveal kept for fallback; AOS handles animations */
-.reveal { opacity: 1; transform: none; }
 
 /* ============ BUTTONS ============ */
 .btn {
@@ -474,8 +484,10 @@ h1, h2, h3, h4 { font-family: var(--ff-head); line-height: 1.15; font-weight: 60
 .review-card__event { font-size: 13px; color: var(--muted); margin-top: 2px; }
 
 /* ============ PORTFOLIO SWIPER ============ */
-.portfolio-swiper { padding-bottom: 48px; position: relative; }
-.portfolio-item { position: relative; border-radius: var(--radius-md); overflow: hidden; background: var(--bg-dark); aspect-ratio: 3/4; margin: 0; }
+.portfolio-swiper { padding-bottom: 48px; position: relative; overflow: hidden; min-height: 320px; }
+.portfolio-swiper .swiper-wrapper { align-items: stretch; min-height: 280px; }
+.portfolio-swiper .swiper-slide { height: auto; display: flex; }
+.portfolio-item { position: relative; border-radius: var(--radius-md); overflow: hidden; background: var(--bg-dark); aspect-ratio: 3/4; margin: 0; width: 100%; min-height: 280px; }
 .portfolio-item a { display: block; width: 100%; height: 100%; position: relative; color: inherit; }
 .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
 .portfolio-item:hover img { transform: scale(1.05); }
@@ -492,7 +504,9 @@ h1, h2, h3, h4 { font-family: var(--ff-head); line-height: 1.15; font-weight: 60
 .portfolio-swiper__prev::after, .portfolio-swiper__next::after { font-size: 16px !important; font-weight: 800; }
 
 /* ============ REVIEWS SWIPER ============ */
-.reviews-swiper { padding-bottom: 44px; }
+.reviews-swiper { padding-bottom: 44px; overflow: hidden; min-height: 220px; }
+.reviews-swiper .swiper-slide { height: auto; display: flex; }
+.reviews-swiper .review-card { width: 100%; min-height: 100%; }
 .reviews-swiper__pagination .swiper-pagination-bullet { background: var(--border); opacity: 1; }
 .reviews-swiper__pagination .swiper-pagination-bullet-active { background: var(--accent); width: 24px; border-radius: 4px; }
 

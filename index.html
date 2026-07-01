@@ -8,11 +8,11 @@
 <meta name="theme-color" content="#0a0a0c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="preload" as="image" href="https://zhan-showman.kz/wp-content/uploads/2022/06/img_8ed94dee196f-10-e1655944985186.jpeg">
 </head>
 <body>
 
@@ -111,7 +111,7 @@
   </div>
 
   <div class="container hero__inner">
-    <div class="hero__content" data-aos="fade-right" data-aos-duration="900">
+    <div class="hero__content">
       <span class="eyebrow" data-i18n="hero.eyebrow">Ведущий мероприятий · с 2010 года</span>
       <h1 class="hero__title">
         <span data-i18n="hero.title1">Жан Шоумен —</span><br>
@@ -148,7 +148,7 @@
       </div>
     </div>
 
-    <div class="hero__media" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
+    <div class="hero__media">
       <div class="hero__media-frame">
         <img src="https://zhan-showman.kz/wp-content/uploads/2022/06/img_8ed94dee196f-10-e1655944985186.jpeg" alt="Жан Шоумен" class="hero__img" loading="eager" width="600" height="750">
         <button class="play-btn play-btn--lg" data-video-title="Приветственное видео Жана Шоумена">
@@ -439,7 +439,7 @@
       <p class="section__desc" data-i18n="portfolio.desc">Лучшие моменты с праздников.</p>
     </div>
 
-    <div class="swiper portfolio-swiper" data-aos="fade-up">
+    <div class="swiper portfolio-swiper">
       <div class="swiper-wrapper">
         <figure class="swiper-slide portfolio-item">
           <a href="https://zhan-showman.kz/wp-content/uploads/2022/06/img_8ed94dee196f-10-e1655944985186.jpeg" class="glightbox" data-gallery="portfolio">
@@ -547,7 +547,7 @@
       <p class="section__desc" data-i18n="reviews.desc">Счастливые и благодарные клиенты.</p>
     </div>
 
-    <div class="swiper reviews-swiper" data-aos="fade-up">
+    <div class="swiper reviews-swiper">
       <div class="swiper-wrapper">
       <article class="swiper-slide review-card">
         <svg class="review-card__quote" width="28" height="28"><use href="#icon-quote"/></svg>
@@ -828,10 +828,9 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script src="js/i18n.js"></script>
-<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+<script src="js/i18n.js" defer></script>
+<script src="js/script.js" defer></script>
 </body>
 </html>
